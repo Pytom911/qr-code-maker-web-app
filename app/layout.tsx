@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,26 +13,38 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "QR Code Maker oleh PytomDev",
-  description: "Alat pembuat QR Code instan, 100% di browser. Mudah, cepat, dan gratis.",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
-  colorScheme: "dark light",
-  metadataBase: new URL("https://github.com/Pytom911/qr-code-maker-web-app"),
+  title: "QR Code Maker – Free & Private",
+  description: "Create QR codes instantly in your browser. Free, fast, private. Download as SVG or PNG.",
+  keywords: ["qr code maker", "qr generator", "free qr", "browser", "svg qr", "png qr"],
+  authors: [{ name: "PytomDev", url: "https://github.com/Pytom911" }],
+  openGraph: {
+    title: "QR Code Maker – Free & Private",
+    description: "Free QR code generator. Runs 100% in your browser.",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth selection:bg-amber-400 selection:text-black touch-action-manipulation`}
     >
-      <head>
-        <meta name="theme-color" content="#0a0a0a" />
-      </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full bg-zinc-950 font-sans antialiased text-zinc-100 flex flex-col">
+        {children}
+      </body>
     </html>
   );
 }
