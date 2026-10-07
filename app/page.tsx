@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useMemo } from "react";
-import { QRCodeSVG } from "qrcode.react";
+import { useState, useRef, useMemo, useEffect } from "react";
+import { QRCodeSVG, QRCodeCanvas } from "qrcode.react";
 
 const presets = [
   { label: "https://example.com", value: "https://example.com" },
@@ -23,9 +23,26 @@ function StarIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function ChevronDownIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className="w-4 h-4"
+      aria-hidden="true"
+      {...props}
+    >
+      <path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [value, setValue] = useState("https://example.com");
-  const qrRef = useRef<SVGSVGElement>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const isValidUrl = useMemo(() => {
     try {
@@ -36,9 +53,19 @@ export default function Home() {
     }
   }, [value]);
 
-  const downloadQR = () => {
-    if (!qrRef.current) return;
-    const svgData = new XMLSerializer().serializeToString(qrRef.current);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const downloadSVG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
     const blob = new Blob([svgData], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -46,6 +73,21 @@ export default function Home() {
     link.download = "qr-code.svg";
     link.click();
     URL.revokeObjectURL(url);
+    setIsDropdownOpen(false);
+  };
+
+  const downloadPNG = () => {
+    if (!canvasRef.current) return;
+    canvasRef.current.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "qr-code.png";
+      link.click();
+      URL.revokeObjectURL(url);
+    }, "image/png");
+    setIsDropdownOpen(false);
   };
 
   const applyPreset = (url: string) => setValue(url);
@@ -53,6 +95,17 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-900 px-6 py-12">
       <div className="mx-auto max-w-5xl">
+        {/* Hidden Canvas for PNG Export */}
+        <div className="absolute -left-[9999px] -top-[9999px] opacity-0 pointer-events-none" aria-hidden="true">
+          <QRCodeCanvas
+            ref={canvasRef}
+            value={value}
+            size={1024}
+            level="H"
+            includeMargin={true}
+          />
+        </div>
+
         <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-10">
           <h1 className="text-4xl font-bold text-zinc-100">
             QR Code Maker
@@ -123,7 +176,7 @@ export default function Home() {
             {isValidUrl ? (
               <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
                 <QRCodeSVG
-                  ref={qrRef}
+                  ref={svgRef}
                   value={value}
                   size={220}
                   level="H"
@@ -134,14 +187,42 @@ export default function Home() {
                 Masukkan URL valid
               </div>
             )}
-            <button
-              type="button"
-              onClick={downloadQR}
-              disabled={!isValidUrl}
-              className="mt-6 w-full max-w-xs rounded-xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
-            >
-              Download QR Code
-            </button>
+            
+            <div className="relative mt-6 w-full max-w-xs" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                disabled={!isValidUrl}
+                aria-expanded={isDropdownOpen}
+                aria-haspopup="menu"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-black transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
+              >
+                Download QR Code
+                <ChevronDownIcon />
+              </button>
+
+              {isDropdownOpen && (
+                <div
+                  className="absolute bottom-full mb-2 w-full overflow-hidden rounded-xl border border-zinc-700 bg-zinc-800 shadow-xl"
+                  role="menu"
+                >
+                  <button
+                    role="menuitem"
+                    onClick={downloadSVG}
+                    className="flex w-full items-center px-4 py-3 text-left text-sm text-zinc-100 hover:bg-zinc-700 transition-colors border-b border-zinc-700"
+                  >
+                    Download SVG (Vector)
+                  </button>
+                  <button
+                    role="menuitem"
+                    onClick={downloadPNG}
+                    className="flex w-full items-center px-4 py-3 text-left text-sm text-zinc-100 hover:bg-zinc-700 transition-colors"
+                  >
+                    Download PNG (High Res)
+                  </button>
+                </div>
+              )}
+            </div>
           </section>
         </div>
 
@@ -160,10 +241,10 @@ export default function Home() {
             </div>
             <div className="rounded-2xl border border-zinc-700 bg-zinc-800 p-6">
               <h3 className="text-lg font-semibold text-zinc-100">
-                Output SVG Berkualitas Tinggi
+                Output SVG & PNG Berkualitas Tinggi
               </h3>
               <p className="mt-2 text-sm text-zinc-400">
-                Unduh QR Code dalam format SVG (vektor) — tajam tanpa batas resolusi, siap cetak maupun digital.
+                Unduh QR Code dalam format SVG (vektor) atau PNG resolusi tinggi — tajam tanpa batas, siap cetak maupun digital.
               </p>
             </div>
             <div className="rounded-2xl border border-zinc-700 bg-zinc-800 p-6">
@@ -192,7 +273,7 @@ export default function Home() {
             </li>
             <li className="flex gap-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-700 text-sm font-bold text-zinc-100">3</span>
-              <p className="text-zinc-300">Klik tombol Download QR Code untuk menyimpan berkas SVG</p>
+              <p className="text-zinc-300">Klik tombol Download untuk memilih format SVG atau PNG</p>
             </li>
           </ol>
         </section>
