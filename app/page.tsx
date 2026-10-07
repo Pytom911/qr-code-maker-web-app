@@ -14,6 +14,27 @@ const presets = [
   { label: "youtube.com", value: "https://youtube.com" },
 ];
 
+/* FRAME FEATURE DISABLED - original type & options commented, code kept for re-enable
+type FrameTemplate = "none" | "rounded" | "love" | "circle" | "square-ornament";
+const FRAME_OPTIONS: { value: FrameTemplate; label: string; icon: string }[] = [
+  { value: "none", label: "None", icon: "○" },
+  { value: "rounded", label: "Rounded", icon: "▢" },
+  { value: "love", label: "Love", icon: "♥" },
+  { value: "circle", label: "Circle", icon: "◎" },
+  { value: "square-ornament", label: "Ornament", icon: "⛶" },
+];
+*/
+type FrameTemplate = "none" | "rounded" | "love" | "circle" | "square-ornament";
+const FRAME_OPTIONS: { value: FrameTemplate; label: string; icon: string }[] = [];
+
+const COLOR_PRESETS = [
+  { name: "Classic Black", fg: "#000000", bg: "#ffffff" },
+  { name: "Ocean Blue", fg: "#1e40af", bg: "#dbeafe" },
+  { name: "Ruby Red", fg: "#dc2626", bg: "#fee2e2" },
+  { name: "Forest Green", fg: "#15803d", bg: "#dcfce7" },
+  { name: "Royal Purple", fg: "#7c3aed", bg: "#ede9fe" },
+];
+
 function StarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true" {...props}>
@@ -92,6 +113,220 @@ function ImageIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+/* FRAME FEATURE DISABLED - drawHeartShape commented, code kept for re-enable
+function drawHeartShape(ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color: string) {
+  const scale = size / 24;
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.translate(cx, cy);
+  ctx.scale(scale, scale);
+  ctx.beginPath();
+  ctx.moveTo(0, -2);
+  ctx.bezierCurveTo(0, -5, -5, -7, -7, -2);
+  ctx.bezierCurveTo(-9, 2, -4, 6, 0, 10);
+  ctx.bezierCurveTo(4, 6, 9, 2, 7, -2);
+  ctx.bezierCurveTo(5, -7, 0, -5, 0, -2);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+*/
+function drawHeartShape(_ctx: CanvasRenderingContext2D, _cx: number, _cy: number, _size: number, _color: string) {}
+
+/* FRAME FEATURE DISABLED - drawFrameDecoration commented, code kept for re-enable
+function drawFrameDecoration(
+  ctx: CanvasRenderingContext2D,
+  template: FrameTemplate,
+  size: number,
+  fgColor: string
+) {
+  ctx.save();
+  ctx.strokeStyle = fgColor;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  const thick = size >= 512 ? 14 : 3.5;
+  const thin = size >= 512 ? 5 : 1.5;
+  if (template === "rounded") {
+    const pad = size * 0.025;
+    const r = size * 0.08;
+    const x = pad;
+    const y = pad;
+    const w = size - pad * 2;
+    const h = size - pad * 2;
+    ctx.lineWidth = thick;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.lineWidth = thin;
+    ctx.globalAlpha = 0.45;
+    const ip = pad + thick * 0.9;
+    const ir = r * 0.55;
+    ctx.beginPath();
+    ctx.moveTo(ip + ir, ip);
+    ctx.lineTo(ip + w - pad * 2 - ir, ip);
+    ctx.quadraticCurveTo(ip + w - pad * 2, ip, ip + w - pad * 2, ip + ir);
+    ctx.lineTo(ip + w - pad * 2, ip + h - pad * 2 - ir);
+    ctx.quadraticCurveTo(ip + w - pad * 2, ip + h - pad * 2, ip + w - pad * 2 - ir, ip + h - pad * 2);
+    ctx.lineTo(ip + ir, ip + h - pad * 2);
+    ctx.quadraticCurveTo(ip, ip + h - pad * 2, ip, ip + h - pad * 2 - ir);
+    ctx.lineTo(ip, ip + ir);
+    ctx.quadraticCurveTo(ip, ip, ip + ir, ip);
+    ctx.closePath();
+    ctx.stroke();
+  } else if (template === "love") {
+    const pad = size * 0.02;
+    const r = size * 0.06;
+    ctx.lineWidth = thick * 0.85;
+    ctx.beginPath();
+    ctx.moveTo(pad + r, pad);
+    ctx.lineTo(size - pad - r, pad);
+    ctx.quadraticCurveTo(size - pad, pad, size - pad, pad + r);
+    ctx.lineTo(size - pad, size - pad - r);
+    ctx.quadraticCurveTo(size - pad, size - pad, size - pad - r, size - pad);
+    ctx.lineTo(pad + r, size - pad);
+    ctx.quadraticCurveTo(pad, size - pad, pad, size - pad - r);
+    ctx.lineTo(pad, pad + r);
+    ctx.quadraticCurveTo(pad, pad, pad + r, pad);
+    ctx.closePath();
+    ctx.stroke();
+    const hs = size * 0.11;
+    const corners: [number, number][] = [
+      [pad + hs * 0.55, pad + hs * 0.35],
+      [size - pad - hs * 0.55, pad + hs * 0.35],
+      [pad + hs * 0.55, size - pad - hs * 0.35],
+      [size - pad - hs * 0.55, size - pad - hs * 0.35],
+    ];
+    corners.forEach(([cx, cy]) => drawHeartShape(ctx, cx, cy, hs, fgColor));
+    const mx = size / 2;
+    const myTop = pad + hs * 0.95;
+    const myBot = size - pad - hs * 0.95;
+    drawHeartShape(ctx, mx, myTop, hs * 0.72, fgColor);
+    drawHeartShape(ctx, mx, myBot, hs * 0.72, fgColor);
+    const myLeft = pad + hs * 0.95;
+    const myRight = size - pad - hs * 0.95;
+    drawHeartShape(ctx, myLeft, mx, hs * 0.72, fgColor);
+    drawHeartShape(ctx, myRight, mx, hs * 0.72, fgColor);
+  } else if (template === "circle") {
+    const cx = size / 2;
+    const cy = size / 2;
+    const outer = size * 0.485;
+    const inner = size * 0.43;
+    ctx.lineWidth = thick;
+    ctx.beginPath();
+    ctx.arc(cx, cy, outer, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.lineWidth = thin * 1.2;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();
+    ctx.arc(cx, cy, inner, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    const dots = 12;
+    const dotR = size >= 512 ? 7 : 1.8;
+    const dotRadius = size * 0.46;
+    for (let i = 0; i < dots; i++) {
+      const a = (Math.PI * 2 * i) / dots;
+      const x = cx + Math.cos(a) * dotRadius;
+      const y = cy + Math.sin(a) * dotRadius;
+      ctx.beginPath();
+      ctx.arc(x, y, dotR, 0, Math.PI * 2);
+      ctx.fillStyle = fgColor;
+      ctx.fill();
+    }
+  } else if (template === "square-ornament") {
+    const pad = size * 0.018;
+    ctx.lineWidth = thick;
+    ctx.strokeRect(pad, pad, size - pad * 2, size - pad * 2);
+    ctx.lineWidth = thin;
+    ctx.globalAlpha = 0.45;
+    const ip = pad + thick * 0.75;
+    ctx.strokeRect(ip, ip, size - ip * 2, size - ip * 2);
+    ctx.globalAlpha = 1;
+    const os = size * 0.14;
+    const th = thick * 0.9;
+    ctx.lineWidth = th;
+    const corners: [number, number, number, number][] = [
+      [pad, pad, 1, 1],
+      [size - pad, pad, -1, 1],
+      [pad, size - pad, 1, -1],
+      [size - pad, size - pad, -1, -1],
+    ];
+    corners.forEach(([x, y, dx, dy]) => {
+      ctx.beginPath();
+      ctx.moveTo(x, y + dy * os * 0.55);
+      ctx.lineTo(x, y);
+      ctx.lineTo(x + dx * os * 0.55, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + dx * os * 0.22, y + dy * os * 0.22);
+      ctx.lineTo(x + dx * os * 0.45, y + dy * os * 0.18);
+      ctx.moveTo(x + dx * os * 0.22, y + dy * os * 0.22);
+      ctx.lineTo(x + dx * os * 0.18, y + dy * os * 0.45);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x + dx * os * 0.28, y + dy * os * 0.28, size >= 512 ? 6 : 1.6, 0, Math.PI * 2);
+      ctx.fillStyle = fgColor;
+      ctx.fill();
+      ctx.strokeStyle = fgColor;
+    });
+    const mid = size * 0.5;
+    const tick = size * 0.045;
+    ctx.lineWidth = thin * 1.1;
+    ctx.globalAlpha = 0.7;
+    [
+      [mid, pad, 0, 1],
+      [mid, size - pad, 0, -1],
+      [pad, mid, 1, 0],
+      [size - pad, mid, -1, 0],
+    ].forEach(([x, y, dx, dy]) => {
+      ctx.beginPath();
+      if (dx === 0) {
+        ctx.moveTo(x - tick, y + dy * tick * 0.6);
+        ctx.lineTo(x + tick, y + dy * tick * 0.6);
+        ctx.moveTo(x, y);
+        ctx.lineTo(x, y + dy * tick);
+      } else {
+        ctx.moveTo(x + dx * tick * 0.6, y - tick);
+        ctx.lineTo(x + dx * tick * 0.6, y + tick);
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + dx * tick, y);
+      }
+      ctx.stroke();
+    });
+  }
+  ctx.restore();
+}
+*/
+function drawFrameDecoration(_ctx: CanvasRenderingContext2D, _template: FrameTemplate, _size: number, _fgColor: string) {}
+
+/* FRAME FEATURE DISABLED - frame removed from filename, warna saja
+function generateFilename(ext: string, frameTemplate: FrameTemplate, fgColor: string): string {
+  const parts = ["qr-code"];
+  if (frameTemplate !== "none") parts.push(frameTemplate);
+*/
+function generateFilename(ext: string, _frameTemplate: FrameTemplate, fgColor: string): string {
+  const parts = ["qr-code"];
+  const map: Record<string, string> = {
+    "#000000": "",
+    "#1e40af": "blue",
+    "#dc2626": "red",
+    "#15803d": "green",
+    "#7c3aed": "purple",
+  };
+  const colorName = map[fgColor.toLowerCase()] || (fgColor === "#000000" ? "" : "custom");
+  if (colorName) parts.push(colorName);
+  return `${parts.join("-")}.${ext}`;
+}
+
 const features = [
   {
     icon: ShieldIcon,
@@ -116,8 +351,12 @@ export default function Home() {
   const [value, setValue] = useState("https://example.com");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [focusedMenuItem, setFocusedMenuItem] = useState(-1);
+  const [qrFgColor, setQrFgColor] = useState("#000000");
+  const [qrBgColor, setQrBgColor] = useState("#ffffff");
+  const [frameTemplate] = useState<FrameTemplate>("none");
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -139,6 +378,34 @@ export default function Home() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (!isValidUrl) return;
+    const timer = window.setTimeout(() => {
+      if (!previewCanvasRef.current || !canvasRef.current) return;
+      const previewCtx = previewCanvasRef.current.getContext("2d");
+      if (!previewCtx) return;
+      previewCtx.clearRect(0, 0, 216, 216);
+      previewCtx.drawImage(canvasRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height, 0, 0, 216, 216);
+      /* FRAME FEATURE DISABLED - frame draw in preview commented
+      if (frameTemplate !== "none") drawFrameDecoration(previewCtx, frameTemplate, 216, qrFgColor);
+      */
+    }, 60);
+    return () => window.clearTimeout(timer);
+  }, [isValidUrl, value, qrFgColor, qrBgColor, frameTemplate]);
+
+  const applyPreset = (fg: string, bg: string) => {
+    setQrFgColor(fg);
+    setQrBgColor(bg);
+  };
+
+  const resetCustomization = () => {
+    setQrFgColor("#000000");
+    setQrBgColor("#ffffff");
+    /* FRAME FEATURE DISABLED - reset commented
+    setFrameTemplate("none");
+    */
+  };
 
   const handleDropdownKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === "Escape" && isDropdownOpen) {
@@ -169,12 +436,151 @@ export default function Home() {
 
   const downloadSVG = () => {
     if (!svgRef.current) return;
-    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const svgClone = svgRef.current.cloneNode(true) as SVGSVGElement;
+    /* FRAME FEATURE DISABLED - SVG export frame commented
+    const svgNS = "http://www.w3.org/2000/svg";
+    const size = 216;
+    if (frameTemplate !== "none") {
+      const group = document.createElementNS(svgNS, "g");
+      group.setAttribute("data-frame", frameTemplate);
+      group.setAttribute("fill", "none");
+      group.setAttribute("stroke", qrFgColor);
+      group.setAttribute("stroke-width", "3.5");
+      group.setAttribute("stroke-linecap", "round");
+      group.setAttribute("stroke-linejoin", "round");
+      if (frameTemplate === "rounded") {
+        const rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", String(size * 0.025));
+        rect.setAttribute("y", String(size * 0.025));
+        rect.setAttribute("width", String(size * 0.95));
+        rect.setAttribute("height", String(size * 0.95));
+        rect.setAttribute("rx", String(size * 0.08));
+        group.appendChild(rect);
+        const inner = document.createElementNS(svgNS, "rect");
+        inner.setAttribute("x", String(size * 0.025 + 3.5 * 0.9));
+        inner.setAttribute("y", String(size * 0.025 + 3.5 * 0.9));
+        inner.setAttribute("width", String(size * 0.95 - (3.5 * 0.9) * 2));
+        inner.setAttribute("height", String(size * 0.95 - (3.5 * 0.9) * 2));
+        inner.setAttribute("rx", String(size * 0.08 * 0.55));
+        inner.setAttribute("stroke-width", "1.5");
+        inner.setAttribute("opacity", "0.45");
+        group.appendChild(inner);
+      } else if (frameTemplate === "circle") {
+        const cx = size / 2;
+        const cy = size / 2;
+        const c1 = document.createElementNS(svgNS, "circle");
+        c1.setAttribute("cx", String(cx));
+        c1.setAttribute("cy", String(cy));
+        c1.setAttribute("r", String(size * 0.485));
+        group.appendChild(c1);
+        const c2 = document.createElementNS(svgNS, "circle");
+        c2.setAttribute("cx", String(cx));
+        c2.setAttribute("cy", String(cy));
+        c2.setAttribute("r", String(size * 0.43));
+        c2.setAttribute("stroke-width", "1.5");
+        c2.setAttribute("opacity", "0.5");
+        group.appendChild(c2);
+        const dots = 12;
+        const dotRadius = size * 0.46;
+        for (let i = 0; i < dots; i++) {
+          const a = (Math.PI * 2 * i) / dots;
+          const x = cx + Math.cos(a) * dotRadius;
+          const y = cy + Math.sin(a) * dotRadius;
+          const dot = document.createElementNS(svgNS, "circle");
+          dot.setAttribute("cx", String(x));
+          dot.setAttribute("cy", String(y));
+          dot.setAttribute("r", "1.8");
+          dot.setAttribute("fill", qrFgColor);
+          dot.setAttribute("stroke", "none");
+          group.appendChild(dot);
+        }
+      } else if (frameTemplate === "love") {
+        const pad = size * 0.02;
+        const r = size * 0.06;
+        const rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", String(pad));
+        rect.setAttribute("y", String(pad));
+        rect.setAttribute("width", String(size - pad * 2));
+        rect.setAttribute("height", String(size - pad * 2));
+        rect.setAttribute("rx", String(r));
+        rect.setAttribute("stroke-width", String(3.5 * 0.85));
+        group.appendChild(rect);
+        const hs = size * 0.11;
+        const scale = hs / 24;
+        const corners: [number, number][] = [
+          [pad + hs * 0.55, pad + hs * 0.35],
+          [size - pad - hs * 0.55, pad + hs * 0.35],
+          [pad + hs * 0.55, size - pad - hs * 0.35],
+          [size - pad - hs * 0.55, size - pad - hs * 0.35],
+        ];
+        corners.forEach(([hx, hy]) => {
+          const heart = document.createElementNS(svgNS, "path");
+          heart.setAttribute("fill", qrFgColor);
+          heart.setAttribute("stroke", "none");
+          heart.setAttribute("transform", `translate(${hx} ${hy}) scale(${scale})`);
+          heart.setAttribute("d", "M0 -2c0 -3 -5 -5 -7 0 -2 4 3 8 7 12 4 -4 9 -8 7 -12 -2 -5 -7 -3 -7 0z");
+          group.appendChild(heart);
+        });
+        const mx = size / 2;
+        [[mx, pad + hs * 0.95], [mx, size - pad - hs * 0.95], [pad + hs * 0.95, mx], [size - pad - hs * 0.95, mx]].forEach(([hx, hy]) => {
+          const heart = document.createElementNS(svgNS, "path");
+          heart.setAttribute("fill", qrFgColor);
+          heart.setAttribute("stroke", "none");
+          heart.setAttribute("transform", `translate(${hx} ${hy}) scale(${scale * 0.72})`);
+          heart.setAttribute("d", "M0 -2c0 -3 -5 -5 -7 0 -2 4 3 8 7 12 4 -4 9 -8 7 -12 -2 -5 -7 -3 -7 0z");
+          group.appendChild(heart);
+        });
+      } else if (frameTemplate === "square-ornament") {
+        const pad = size * 0.018;
+        const rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", String(pad));
+        rect.setAttribute("y", String(pad));
+        rect.setAttribute("width", String(size - pad * 2));
+        rect.setAttribute("height", String(size - pad * 2));
+        group.appendChild(rect);
+        const ip = pad + 3.5 * 0.75;
+        const inner = document.createElementNS(svgNS, "rect");
+        inner.setAttribute("x", String(ip));
+        inner.setAttribute("y", String(ip));
+        inner.setAttribute("width", String(size - ip * 2));
+        inner.setAttribute("height", String(size - ip * 2));
+        inner.setAttribute("stroke-width", "1.5");
+        inner.setAttribute("opacity", "0.45");
+        group.appendChild(inner);
+        const os = size * 0.14;
+        const corners: [number, number, number, number][] = [
+          [pad, pad, 1, 1],
+          [size - pad, pad, -1, 1],
+          [pad, size - pad, 1, -1],
+          [size - pad, size - pad, -1, -1],
+        ];
+        corners.forEach(([x, y, dx, dy]) => {
+          const p1 = document.createElementNS(svgNS, "path");
+          p1.setAttribute("d", `M${x} ${y + dy * os * 0.55} L${x} ${y} L${x + dx * os * 0.55} ${y}`);
+          p1.setAttribute("stroke-width", String(3.5 * 0.9));
+          group.appendChild(p1);
+          const p2 = document.createElementNS(svgNS, "path");
+          p2.setAttribute("d", `M${x + dx * os * 0.22} ${y + dy * os * 0.22} L${x + dx * os * 0.45} ${y + dy * os * 0.18} M${x + dx * os * 0.22} ${y + dy * os * 0.22} L${x + dx * os * 0.18} ${y + dy * os * 0.45}`);
+          p2.setAttribute("stroke-width", String(3.5 * 0.9));
+          group.appendChild(p2);
+          const dot = document.createElementNS(svgNS, "circle");
+          dot.setAttribute("cx", String(x + dx * os * 0.28));
+          dot.setAttribute("cy", String(y + dy * os * 0.28));
+          dot.setAttribute("r", "1.6");
+          dot.setAttribute("fill", qrFgColor);
+          dot.setAttribute("stroke", "none");
+          group.appendChild(dot);
+        });
+      }
+      svgClone.appendChild(group);
+    }
+    */
+    const svgData = new XMLSerializer().serializeToString(svgClone);
     const blob = new Blob([svgData], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "qr-code.svg";
+    link.download = generateFilename("svg", frameTemplate, qrFgColor);
     link.click();
     URL.revokeObjectURL(url);
     setIsDropdownOpen(false);
@@ -182,12 +588,23 @@ export default function Home() {
 
   const downloadPNG = () => {
     if (!canvasRef.current) return;
-    canvasRef.current.toBlob((blob) => {
+    const exportCanvas = document.createElement("canvas");
+    exportCanvas.width = canvasRef.current.width;
+    exportCanvas.height = canvasRef.current.height;
+    const exportCtx = exportCanvas.getContext("2d");
+    if (!exportCtx) return;
+    exportCtx.fillStyle = qrBgColor;
+    exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+    exportCtx.drawImage(canvasRef.current, 0, 0);
+    /* FRAME FEATURE DISABLED - PNG frame commented
+    if (frameTemplate !== "none") drawFrameDecoration(exportCtx, frameTemplate, exportCanvas.width, qrFgColor);
+    */
+    exportCanvas.toBlob((blob) => {
       if (!blob) return;
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "qr-code.png";
+      link.download = generateFilename("png", frameTemplate, qrFgColor);
       link.click();
       URL.revokeObjectURL(url);
     }, "image/png");
@@ -196,11 +613,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-white/[0.06] blur-[120px]" />
-        <div className="absolute top-40 -left-40 h-72 w-72 rounded-full bg-amber-500/10 blur-[100px]" />
-        <div className="absolute top-96 -right-40 h-72 w-72 rounded-full bg-sky-500/10 blur-[100px]" />
-      </div>
       <div className="absolute -left-[9999px] -top-[9999px] opacity-0 pointer-events-none" aria-hidden="true" tabIndex={-1}>
         <QRCodeCanvas
           ref={canvasRef}
@@ -208,6 +620,16 @@ export default function Home() {
           size={1024}
           level="H"
           includeMargin={true}
+          fgColor={qrFgColor}
+          bgColor={qrBgColor}
+        />
+        <QRCodeSVG
+          ref={svgRef}
+          value={value.trim() || "https://example.com"}
+          size={216}
+          level="H"
+          fgColor={qrFgColor}
+          bgColor={qrBgColor}
         />
       </div>
 
@@ -227,7 +649,7 @@ export default function Home() {
               href={SAWERIA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2 text-sm font-bold text-black shadow-[0_0_24px_-6px] shadow-amber-400/50 transition hover:bg-amber-300 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2 text-sm font-bold text-black transition hover:bg-amber-300 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
             >
               <HeartIcon />
               Support Me
@@ -263,7 +685,7 @@ export default function Home() {
         </section>
 
         <div className="grid gap-5 md:grid-cols-2">
-          <section aria-labelledby="create-heading" className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 shadow-2xl shadow-black/30 backdrop-blur">
+          <section aria-labelledby="create-heading" className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h2 id="create-heading" className="text-lg font-semibold tracking-tight scroll-mt-24">
@@ -325,10 +747,39 @@ export default function Home() {
                   </button>
                 ))}
               </div>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="h-px flex-1 bg-zinc-800" />
+                <span className="text-xs font-medium text-zinc-500">Customize</span>
+                <div className="h-px flex-1 bg-zinc-800" />
+              </div>
+              <div className="mt-5">
+                <label className="mb-2 block text-sm font-medium text-zinc-300">Quick Presets</label>
+                <div className="flex flex-wrap gap-2">
+                  {COLOR_PRESETS.map((p) => (
+                    <button key={p.name} onClick={() => applyPreset(p.fg, p.bg)} className="rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-xs font-medium text-zinc-300 hover:bg-zinc-800">{p.name}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {[{l:"QR Color",v:qrFgColor,s:setQrFgColor},{l:"Background",v:qrBgColor,s:setQrBgColor}].map((c) => (
+                  <div key={c.l}>
+                    <label className="mb-1.5 block text-xs text-zinc-400">{c.l}</label>
+                    <input type="color" value={c.v} onChange={(e) => c.s(e.target.value)} className="h-9 w-full cursor-pointer rounded-lg border border-zinc-800 bg-zinc-950 p-1" />
+                  </div>
+                ))}
+              </div>
+              {/* FRAME FEATURE DISABLED - frame picker commented
+              <div className="mt-5 grid grid-cols-5 gap-2">
+                {FRAME_OPTIONS.map((f) => (
+                  <button key={f.value} onClick={() => setFrameTemplate(f.value)} className={`rounded-lg border p-2 text-center text-xs ${frameTemplate === f.value ? "border-white bg-zinc-800" : "border-zinc-800 bg-zinc-900/80"}`}>{f.icon}<span className="block mt-1">{f.label}</span></button>
+                ))}
+              </div>
+              */}
+              <button onClick={resetCustomization} className="mt-5 w-full rounded-lg border border-zinc-700 bg-zinc-800/50 px-4 py-2 text-xs text-zinc-300 hover:bg-zinc-700">Reset</button>
             </div>
           </section>
 
-          <section aria-labelledby="preview-heading" className="flex min-h-[420px] flex-col items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 shadow-2xl shadow-black/30 backdrop-blur">
+          <section aria-labelledby="preview-heading" className="flex min-h-[420px] flex-col items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
             <div className="mb-5 flex w-full items-center justify-between">
               <h2 id="preview-heading" className="text-lg font-semibold tracking-tight scroll-mt-24">
                 Preview
@@ -336,14 +787,8 @@ export default function Home() {
               <span className="text-xs text-zinc-500">Level H • 30% resilient</span>
             </div>
             {isValidUrl ? (
-              <div className="rounded-2xl bg-white p-4 shadow-xl shadow-black/40 ring-1 ring-white/20">
-                <QRCodeSVG
-                  ref={svgRef}
-                  value={value.trim()}
-                  size={216}
-                  level="H"
-                  className="block h-[216px] w-[216px]"
-                />
+              <div className="rounded-2xl p-4 ring-1 ring-white/10" style={{ backgroundColor: qrBgColor }}>
+                <canvas ref={previewCanvasRef} width={216} height={216} className="block h-[216px] w-[216px]" />
               </div>
             ) : (
               <div className="flex h-[216px] w-[216px] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-zinc-700 bg-zinc-950 text-center">
@@ -374,7 +819,7 @@ export default function Home() {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute bottom-full mb-2 w-full overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900 shadow-2xl shadow-black/50" role="menu">
+                <div className="absolute bottom-full mb-2 w-full overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900" role="menu">
                   <button
                     role="menuitem"
                     onClick={downloadSVG}
