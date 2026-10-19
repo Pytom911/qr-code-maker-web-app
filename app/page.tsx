@@ -612,7 +612,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
+    <main className="relative min-h-screen overflow-hidden bg-white text-zinc-900">
       <div className="absolute -left-[9999px] -top-[9999px] opacity-0 pointer-events-none" aria-hidden="true" tabIndex={-1}>
         <QRCodeCanvas
           ref={canvasRef}
@@ -635,8 +635,8 @@ export default function Home() {
 
       <div className="relative mx-auto max-w-5xl px-5 pb-10 pt-6 sm:px-8 sm:pt-8">
         <header className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Link href="/" className="flex w-fit items-center gap-3 rounded-xl touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black">
+          <Link href="/" className="flex w-fit items-center gap-3 rounded-xl touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 text-white">
               <QrIcon />
             </span>
             <span className="leading-tight">
@@ -649,7 +649,7 @@ export default function Home() {
               href={SAWERIA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2 text-sm font-bold text-black transition hover:bg-amber-300 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2 text-sm font-bold text-black transition hover:bg-amber-300 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               <HeartIcon />
               Support Me
@@ -658,7 +658,7 @@ export default function Home() {
               href={GITHUB_REPO}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/80 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-zinc-700 hover:bg-zinc-800 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
+              className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-100 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               <StarIcon />
               Star on GitHub
@@ -667,10 +667,10 @@ export default function Home() {
         </header>
 
         <section className="mb-8 max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-3 py-1 text-xs font-medium text-zinc-300">
+          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100/80 px-3 py-1 text-xs font-medium text-zinc-700">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             Free • No sign-up • Private
           </span>
@@ -678,14 +678,14 @@ export default function Home() {
             Create QR Codes<br />
             <span className="text-zinc-500">in an instant.</span>
           </h1>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-400">
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-600">
             Paste a URL, preview appears instantly, download as high-res SVG or PNG.
             Everything runs in your browser. Your data never leaves your device.
           </p>
         </section>
 
         <div className="grid gap-5 md:grid-cols-2">
-          <section aria-labelledby="create-heading" className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <section aria-labelledby="create-heading" className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h2 id="create-heading" className="text-lg font-semibold tracking-tight scroll-mt-24">
@@ -694,14 +694,14 @@ export default function Home() {
                 <p className="mt-1 text-sm text-zinc-500">Enter a valid http/https link</p>
               </div>
               <span 
-                className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${isValidUrl ? "bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-500/25" : "bg-zinc-800 text-zinc-400 ring-1 ring-zinc-700"}`}
+                className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${isValidUrl ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/30" : "bg-zinc-100 text-zinc-500 ring-1 ring-zinc-200"}`}
                 aria-live="polite"
               >
                 {isValidUrl ? <><CheckIcon /> Valid</> : "Pending"}
               </span>
             </div>
             <div className="mt-5">
-              <label htmlFor="qr-input" className="mb-2 flex items-center justify-between text-sm font-medium text-zinc-300">
+              <label htmlFor="qr-input" className="mb-2 flex items-center justify-between text-sm font-medium text-zinc-700">
                 URL
                 <span className="text-xs font-normal text-zinc-500">{value.length}/2000</span>
               </label>
@@ -714,25 +714,25 @@ export default function Home() {
                   maxLength={2000}
                   rows={5}
                   spellCheck={false}
-                  className={`w-full resize-none rounded-xl border bg-zinc-950 px-4 py-3 pr-10 text-sm leading-relaxed text-zinc-100 placeholder:text-zinc-600 outline-none transition focus-visible:ring-2 ${value && !isValidUrl ? "border-red-500/70 focus-visible:ring-red-500/40" : "border-zinc-800 focus:border-zinc-600 focus-visible:ring-zinc-500/40"}`}
+                  className={`w-full resize-none rounded-xl border bg-white px-4 py-3 pr-10 text-sm leading-relaxed text-zinc-900 placeholder:text-zinc-400 outline-none transition focus-visible:ring-2 ${value && !isValidUrl ? "border-red-500/70 focus-visible:ring-red-500/40" : "border-zinc-300 focus:border-zinc-400 focus-visible:ring-zinc-500/40"}`}
                 />
                 {value && (
                   <button
                     type="button"
                     onClick={() => setValue("")}
                     aria-label="Clear input"
-                    className="absolute right-3 top-3 rounded-lg px-2 py-1 text-xs text-zinc-500 transition hover:bg-zinc-800 hover:text-zinc-200 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
+                    className="absolute right-3 top-3 rounded-lg px-2 py-1 text-xs text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-800 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
                   >
                     Clear
                   </button>
                 )}
               </div>
               {value.trim() && !isValidUrl ? (
-                <p className="mt-2 text-xs text-red-400" role="alert">
+                <p className="mt-2 text-xs text-red-600" role="alert">
                   Invalid URL: start with http:// or https://
                 </p>
               ) : (
-                <p className="mt-2 text-xs text-zinc-600">Example: https://your-store.com/promo</p>
+                <p className="mt-2 text-xs text-zinc-500">Example: https://your-store.com/promo</p>
               )}
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <span className="text-xs text-zinc-500">Try:</span>
@@ -741,45 +741,45 @@ export default function Home() {
                     key={preset.value}
                     type="button"
                     onClick={() => setValue(preset.value)}
-                    className={`rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 ${value === preset.value ? "bg-white text-black ring-white" : "bg-zinc-800/80 text-zinc-300 ring-zinc-700 hover:bg-zinc-700 hover:text-white"}`}
+                    className={`rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-zinc-500 ${value === preset.value ? "bg-zinc-900 text-white ring-zinc-900" : "bg-zinc-100 text-zinc-700 ring-zinc-200 hover:bg-zinc-200 hover:text-zinc-900"}`}
                   >
                     {preset.label}
                   </button>
                 ))}
               </div>
               <div className="mt-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-zinc-800" />
+                <div className="h-px flex-1 bg-zinc-200" />
                 <span className="text-xs font-medium text-zinc-500">Customize</span>
-                <div className="h-px flex-1 bg-zinc-800" />
+                <div className="h-px flex-1 bg-zinc-200" />
               </div>
               <div className="mt-5">
-                <label className="mb-2 block text-sm font-medium text-zinc-300">Quick Presets</label>
+                <label className="mb-2 block text-sm font-medium text-zinc-700">Quick Presets</label>
                 <div className="flex flex-wrap gap-2">
                   {COLOR_PRESETS.map((p) => (
-                    <button key={p.name} onClick={() => applyPreset(p.fg, p.bg)} className="rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-xs font-medium text-zinc-300 hover:bg-zinc-800">{p.name}</button>
+                    <button key={p.name} onClick={() => applyPreset(p.fg, p.bg)} className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500">{p.name}</button>
                   ))}
                 </div>
               </div>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {[{l:"QR Color",v:qrFgColor,s:setQrFgColor},{l:"Background",v:qrBgColor,s:setQrBgColor}].map((c) => (
                   <div key={c.l}>
-                    <label className="mb-1.5 block text-xs text-zinc-400">{c.l}</label>
-                    <input type="color" value={c.v} onChange={(e) => c.s(e.target.value)} className="h-9 w-full cursor-pointer rounded-lg border border-zinc-800 bg-zinc-950 p-1" />
+                    <label className="mb-1.5 block text-xs text-zinc-600">{c.l}</label>
+                    <input type="color" value={c.v} onChange={(e) => c.s(e.target.value)} className="h-9 w-full cursor-pointer rounded-lg border border-zinc-300 bg-white p-1" />
                   </div>
                 ))}
               </div>
               {/* FRAME FEATURE DISABLED - frame picker commented
               <div className="mt-5 grid grid-cols-5 gap-2">
                 {FRAME_OPTIONS.map((f) => (
-                  <button key={f.value} onClick={() => setFrameTemplate(f.value)} className={`rounded-lg border p-2 text-center text-xs ${frameTemplate === f.value ? "border-white bg-zinc-800" : "border-zinc-800 bg-zinc-900/80"}`}>{f.icon}<span className="block mt-1">{f.label}</span></button>
+                  <button key={f.value} onClick={() => setFrameTemplate(f.value)} className={`rounded-lg border p-2 text-center text-xs ${frameTemplate === f.value ? "border-zinc-900 bg-zinc-100" : "border-zinc-200 bg-white"}`}>{f.icon}<span className="block mt-1">{f.label}</span></button>
                 ))}
               </div>
               */}
-              <button onClick={resetCustomization} className="mt-5 w-full rounded-lg border border-zinc-700 bg-zinc-800/50 px-4 py-2 text-xs text-zinc-300 hover:bg-zinc-700">Reset</button>
+              <button onClick={resetCustomization} className="mt-5 w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-xs font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500">Reset</button>
             </div>
           </section>
 
-          <section aria-labelledby="preview-heading" className="flex min-h-[420px] flex-col items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <section aria-labelledby="preview-heading" className="flex min-h-[420px] flex-col items-center justify-center rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="mb-5 flex w-full items-center justify-between">
               <h2 id="preview-heading" className="text-lg font-semibold tracking-tight scroll-mt-24">
                 Preview
@@ -787,12 +787,12 @@ export default function Home() {
               <span className="text-xs text-zinc-500">Level H • 30% resilient</span>
             </div>
             {isValidUrl ? (
-              <div className="rounded-2xl p-4 ring-1 ring-white/10" style={{ backgroundColor: qrBgColor }}>
+              <div className="rounded-2xl p-4 shadow-sm ring-1 ring-zinc-200" style={{ backgroundColor: qrBgColor }}>
                 <canvas ref={previewCanvasRef} width={216} height={216} className="block h-[216px] w-[216px]" />
               </div>
             ) : (
-              <div className="flex h-[216px] w-[216px] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-zinc-700 bg-zinc-950 text-center">
-                <QrIcon />
+              <div className="flex h-[216px] w-[216px] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 text-center">
+                <QrIcon className="h-5 w-5 text-zinc-500" />
                 <p className="max-w-[160px] text-sm text-zinc-500">Enter a valid URL to see QR code</p>
               </div>
             )}
@@ -812,22 +812,22 @@ export default function Home() {
                 aria-expanded={isDropdownOpen}
                 aria-haspopup="menu"
                 aria-label="Select QR code download format"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-black transition hover:bg-zinc-200 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-600 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-zinc-800 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 Download QR Code
                 <ChevronDownIcon />
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute bottom-full mb-2 w-full overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900" role="menu">
+                <div className="absolute bottom-full mb-2 w-full overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xl" role="menu">
                   <button
                     role="menuitem"
                     onClick={downloadSVG}
                     onKeyDown={(e) => handleMenuKeyDown(e, 0)}
                     autoFocus={focusedMenuItem === 0}
-                    className="flex w-full flex-col gap-0.5 border-b border-zinc-800 px-4 py-3 text-left transition hover:bg-zinc-800 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-zinc-500"
+                    className="flex w-full flex-col gap-0.5 border-b border-zinc-200 px-4 py-3 text-left transition hover:bg-zinc-50 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-zinc-500"
                   >
-                    <span className="text-sm font-semibold text-zinc-100">SVG: Vector</span>
+                    <span className="text-sm font-semibold text-zinc-900">SVG: Vector</span>
                     <span className="text-xs text-zinc-500">Best for print & logos</span>
                   </button>
                   <button
@@ -835,15 +835,15 @@ export default function Home() {
                     onClick={downloadPNG}
                     onKeyDown={(e) => handleMenuKeyDown(e, 1)}
                     autoFocus={focusedMenuItem === 1}
-                    className="flex w-full flex-col gap-0.5 px-4 py-3 text-left transition hover:bg-zinc-800 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-zinc-500"
+                    className="flex w-full flex-col gap-0.5 px-4 py-3 text-left transition hover:bg-zinc-50 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-zinc-500"
                   >
-                    <span className="text-sm font-semibold text-zinc-100">PNG: 1024px</span>
+                    <span className="text-sm font-semibold text-zinc-900">PNG: 1024px</span>
                     <span className="text-xs text-zinc-500">Best for social & web</span>
                   </button>
                 </div>
               )}
             </div>
-            {!isValidUrl && <p className="mt-3 text-xs text-zinc-600">Button activates when URL is valid</p>}
+            {!isValidUrl && <p className="mt-3 text-xs text-zinc-500">Button activates when URL is valid</p>}
           </section>
         </div>
 
@@ -854,18 +854,18 @@ export default function Home() {
           <p className="mt-1 text-sm text-zinc-500">Lightweight, fast, no traps.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {features.map((f) => (
-              <div key={f.title} className="group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 transition hover:border-zinc-700 hover:bg-zinc-900">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-800 text-zinc-200 ring-1 ring-zinc-700 transition group-hover:bg-white group-hover:text-black">
+              <div key={f.title} className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200 transition group-hover:bg-zinc-900 group-hover:text-white group-hover:ring-zinc-900">
                   <f.icon />
                 </span>
                 <h3 className="mt-4 text-[15px] font-semibold">{f.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{f.desc}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">{f.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section aria-labelledby="howto-heading" className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-8">
+        <section aria-labelledby="howto-heading" className="mt-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
           <h2 id="howto-heading" className="text-xl font-bold tracking-tight sm:text-2xl scroll-mt-24">
             How to Use
           </h2>
@@ -876,14 +876,14 @@ export default function Home() {
             "Click Download, then choose SVG or PNG",
           ].map((step, i) => (
               <li key={step} className="flex items-center gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-black">{i + 1}</span>
-                <p className="text-sm text-zinc-300 sm:text-[15px]">{step}</p>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-bold text-white">{i + 1}</span>
+                <p className="text-sm text-zinc-700 sm:text-[15px]">{step}</p>
               </li>
             ))}
           </ol>
         </section>
 
-        <section aria-labelledby="support-heading" className="mt-6 overflow-hidden rounded-2xl border border-amber-400/20 bg-gradient-to-br from-amber-400/[0.12] via-zinc-900 to-zinc-900 p-6 sm:p-8">
+        <section aria-labelledby="support-heading" className="mt-6 overflow-hidden rounded-2xl border border-amber-300/50 bg-gradient-to-br from-amber-100 via-amber-50 to-white p-6 shadow-sm sm:p-8">
           <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-400 text-black">
@@ -893,7 +893,7 @@ export default function Home() {
                 <h2 id="support-heading" className="text-lg font-bold tracking-tight sm:text-xl scroll-mt-24">
                   This Tool Is Free. A Tip Helps.
                 </h2>
-                <p className="mt-1 max-w-md text-sm leading-relaxed text-zinc-400">
+                <p className="mt-1 max-w-md text-sm leading-relaxed text-zinc-600">
                   Support PytomDev to keep building free open-source tools via Saweria.
                 </p>
               </div>
@@ -903,7 +903,7 @@ export default function Home() {
                 href={SAWERIA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-amber-400 px-5 py-3 text-sm font-bold text-black transition hover:bg-amber-300 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 sm:flex-none"
+                className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-amber-400 px-5 py-3 text-sm font-bold text-black transition hover:bg-amber-300 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:flex-none"
               >
                 <HeartIcon />
                 Support via Saweria
@@ -912,7 +912,7 @@ export default function Home() {
                 href={GITHUB_REPO}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-zinc-700 bg-zinc-950/60 px-5 py-3 text-sm font-medium text-zinc-200 transition hover:bg-zinc-800 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 sm:flex-none"
+                className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-zinc-300 bg-white px-5 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:flex-none"
               >
                 <StarIcon />
                 Give a Star
@@ -921,11 +921,11 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="mt-12 border-t border-zinc-900 pt-10">
+        <footer className="mt-12 border-t border-zinc-200 pt-10">
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-black">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-900 text-white">
                   <QrIcon />
                 </span>
                 <span className="font-bold tracking-tight">QR Code Maker</span>
@@ -938,7 +938,7 @@ export default function Home() {
                   href={SAWERIA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg bg-amber-400/10 px-3 py-2 text-xs font-bold text-amber-300 ring-1 ring-amber-400/25 transition hover:bg-amber-400 hover:text-black touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
+                  className="inline-flex items-center gap-2 rounded-lg bg-amber-50 px-3 py-2 text-xs font-bold text-amber-700 ring-1 ring-amber-300 transition hover:bg-amber-400 hover:text-black touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600"
                 >
                   <HeartIcon />
                   saweria.co/PytomDev
@@ -948,7 +948,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub PytomDev"
-                  className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 ring-1 ring-zinc-800 transition hover:bg-zinc-800 hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
+                  className="inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200 transition hover:bg-zinc-100 hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500"
                 >
                   <GithubIcon />
                   PytomDev
@@ -958,26 +958,26 @@ export default function Home() {
             <nav aria-label="Navigation">
               <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500">Explore</h3>
               <ul className="mt-3 space-y-2.5 text-sm">
-                <li><a href="#create-heading" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Create QR</a></li>
-                <li><a href="#preview-heading" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Preview & Download</a></li>
-                <li><a href="#features-heading" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Features</a></li>
-                <li><a href="#howto-heading" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">How to Use</a></li>
+                <li><a href="#create-heading" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Create QR</a></li>
+                <li><a href="#preview-heading" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Preview & Download</a></li>
+                <li><a href="#features-heading" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Features</a></li>
+                <li><a href="#howto-heading" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">How to Use</a></li>
               </ul>
             </nav>
             <nav aria-label="Resources">
               <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500">Support</h3>
               <ul className="mt-3 space-y-2.5 text-sm">
-                <li><a href={SAWERIA_URL} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition hover:text-amber-300 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded">Support via Saweria</a></li>
-                <li><a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Star Repository</a></li>
-                <li><a href={`${GITHUB_REPO}/issues`} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Report a Bug</a></li>
-                <li><a href={GITHUB_PROFILE} target="_blank" rel="noopener noreferrer" className="text-zinc-400 transition hover:text-white touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Developer Profile</a></li>
+                <li><a href={SAWERIA_URL} target="_blank" rel="noopener noreferrer" className="text-zinc-600 transition hover:text-amber-700 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded">Support via Saweria</a></li>
+                <li><a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Star Repository</a></li>
+                <li><a href={`${GITHUB_REPO}/issues`} target="_blank" rel="noopener noreferrer" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Report a Bug</a></li>
+                <li><a href={GITHUB_PROFILE} target="_blank" rel="noopener noreferrer" className="text-zinc-600 transition hover:text-zinc-900 touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 rounded">Developer Profile</a></li>
               </ul>
             </nav>
           </div>
-          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-zinc-900 pt-6 text-center sm:flex-row sm:text-left">
-            <p className="text-xs text-zinc-600">© {year} PytomDev. Free to use for personal & commercial purposes.</p>
-            <p className="text-xs text-zinc-600">
-              Like this tool? <a href={SAWERIA_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-300 hover:text-amber-200 hover:underline touch-action-manipulation">Buy me a coffee</a> • <a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-white hover:underline touch-action-manipulation">GitHub</a>
+          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-zinc-200 pt-6 text-center sm:flex-row sm:text-left">
+            <p className="text-xs text-zinc-500">© {year} PytomDev. Free to use for personal & commercial purposes.</p>
+            <p className="text-xs text-zinc-500">
+              Like this tool? <a href={SAWERIA_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700 hover:text-amber-800 hover:underline touch-action-manipulation">Buy me a coffee</a> • <a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer" className="text-zinc-700 hover:text-zinc-900 hover:underline touch-action-manipulation">GitHub</a>
             </p>
           </div>
         </footer>
