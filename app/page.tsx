@@ -641,7 +641,7 @@ export default function Home() {
             </span>
             <span className="leading-tight">
               <span className="block text-base font-bold tracking-tight">QR Code Maker</span>
-              <span className="block text-xs text-zinc-500">by PytomDev • Free</span>
+              <span className="block text-xs text-zinc-500">by PytomDev</span>
             </span>
           </Link>
           <nav className="flex flex-wrap items-center gap-2" aria-label="Primary actions">
@@ -667,13 +667,6 @@ export default function Home() {
         </header>
 
         <section className="mb-8 max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100/80 px-3 py-1 text-xs font-medium text-zinc-700">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            Free • No sign-up • Private
-          </span>
           <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl balance">
             Create QR Codes<br />
             <span className="text-zinc-500">in an instant.</span>
